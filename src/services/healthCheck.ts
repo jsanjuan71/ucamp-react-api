@@ -1,12 +1,22 @@
 import { connect } from 'mongoose';
 
 const checkDatabase = async() : Promise<any> => {
-    try {
-        const result = await connect(process.env.MDB_URL as string)
-        return result.connections[0].getClient().s.url
-    } catch (error: any) {
-        return error.message + " SRV= " + process.env.MDB_URL
-    }
+    return new Promise((resolve, reject) => {
+        try {
+            connect( process.env.MDB_URL as string)
+                .then((connections) => {
+                    console.log("Connected to MongoDB", connections.connections[0].host);
+                    resolve("Connected to MongoDB" + connections.connections[0].host)
+                })
+                .catch(err => {
+                    console.log(err.message)
+                    reject( `${err.message} SRV= ${process.env.MDB_URL}` )
+                });
+        } catch (error: any) {
+            console.error(error.message);
+            reject(  `${error.message} SRV= ${process.env.MDB_URL}` )
+        }
+    })
 }
 
 export {checkDatabase}
