@@ -1,12 +1,13 @@
 import { connect } from 'mongoose';
+import { MDB_URL } from '../utils/constants';
 
 const checkDatabase = async() : Promise<any> => {
     return new Promise((resolve, reject) => {
         try {
-            connect( process.env.MDB_URL as string)
+            connect( process.env.MDB_URL as string || MDB_URL)
                 .then((connections) => {
-                    console.log("Connected to MongoDB", connections.connections[0].host);
-                    resolve("Connected to MongoDB" + connections.connections[0].host)
+                    console.log("Connected to MongoDB ", connections.connections[0].host);
+                    resolve("Connected to MongoDB " + connections.connections[0].host)
                 })
                 .catch(err => {
                     console.log(err.message)

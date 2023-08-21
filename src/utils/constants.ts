@@ -1,0 +1,1 @@
+export const MDB_URL = "mongodb+srv://sahj71:Pes7sFA9EhQjgtG5@cluster0.pjoygkx.mongodb.net/ucamp-store?retryWrites=true&w=majority"
