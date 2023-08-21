@@ -1,4 +1,5 @@
 import { Schema, model, connect } from 'mongoose';
+import { MDB_URL } from '../../utils/constants';
 
 export interface IProduct {
     id: number,
@@ -27,7 +28,7 @@ run().catch(err => console.log(err));
 
 async function run() {
 // 4. Connect to MongoDB
-    await connect(process.env.MDB_URL as string);
+    await connect(process.env.MDB_URL as string  || MDB_URL);
     const product = new Product({
         title: "iPhone X 64Gb",
         description: "Apple iphone 64 GB RAM color spacegray 5.1 pulgadas",
